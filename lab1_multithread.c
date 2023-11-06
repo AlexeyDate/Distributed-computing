@@ -3,7 +3,7 @@
 #include <math.h>
 #include <pthread.h>
 #include "timer.h"
-
+ 
 #define DT 0.05
 #define EPS 1e-6
 
