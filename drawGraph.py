@@ -17,7 +17,9 @@ for i, currentFileName in enumerate(fileNames):
             threadPoints[i].append(int(points))
             threadTime[i].append(round(float(time.replace('\n', '')), 2))
 
-    plt.plot(threadPoints[i], threadTime[i], marker='o', color=colors[i], label=str(2 ** i) + ' thread')
+    p = 2 ** i
+    label = str(p) + ' thread' if i == 0 else str(p) + ' threads'
+    plt.plot(threadPoints[i], threadTime[i], marker='o', color=colors[i], label=label)
 
 visiblePoints = []
 for point in threadPoints[0]:
@@ -40,8 +42,9 @@ plt.xlabel('number of points')
 
 for i in range(len(threadTime)):
     if i > 0:  # skip single thread
+        p = 2 ** i
         speedUp = [threadTime[0][j] / threadTime[i][j] for j in range(len(threadTime[0]))]
-        plt.plot(threadPoints[i], speedUp, marker='o', color=colors[i], label=str(2 ** i) + ' thread')
+        plt.plot(threadPoints[i], speedUp, marker='o', color=colors[i], label=str(p) + ' threads')
 
 plt.xticks(ticks=threadPoints[0], labels=visiblePoints)
 plt.grid(visible=1, linestyle="--", linewidth=0.5, color="0.5")
@@ -59,7 +62,7 @@ for i in range(len(threadTime)):
     if i > 0:  # skip single thread
         p = 2 ** i
         speedUp = [threadTime[0][j] / (threadTime[i][j] * p) for j in range(len(threadTime[0]))]
-        plt.plot(threadPoints[i], speedUp, marker='o', color=colors[i], label=str(p) + ' thread')
+        plt.plot(threadPoints[i], speedUp, marker='o', color=colors[i], label=str(p) + ' threads')
 
 plt.xticks(ticks=threadPoints[0], labels=visiblePoints)
 plt.grid(visible=1, linestyle="--", linewidth=0.5, color="0.5")
